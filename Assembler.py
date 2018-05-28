@@ -128,7 +128,98 @@ def pass1():
         locctr += current_token.byte_size
         token_index += 1
 
+def pass2():
+    code_line = ""
+    token_index = 0
+    line_size = 0
+
+    for i in range(0, len(token_tab_list)):
+        token_tab = token_tab_list[i]
+        for j in range(0, token_tab.get_size()):
+            token_tab.make_object_code(j)
+
+        for j in range(0, token_tab.get_size()):
+            current_token = token_tab.get_token(j)
+
+            if eq(current_token.label, "."):
+                continue
+            elif eq(current_token.operator, "START") | eq(current_token.operator, "CSECT"):
+                token_index = 0
+
+                start_address = token_tab.get_token(0).location
+                program_size = 0
+
+                for k in range(0, token_tab.get_size()):
+                    program_size += token_tab.get_token(k).byte_size
+
+                for k in range(0, literal_tab_list[i].get_size()):
+                    program_size += literal_tab_list[i].get_literal_size(k)
+
+                code_line = "H" + current_token.label + " " + ("%06X" % start_address) + ("%06X" % (program_size-start_address))
+
+            elif eq(current_token.operator, "EXTDEF"):
+                code_line = "D"
+                for k in range(0, len(current_token.operand)):
+                    code_line += current_token.operand[k] + ("%06X" % sym_tab_list[i].search(current_token.operand[k]))
+            elif eq(current_token.operator, "EXTREF"):
+                code_line = "R"
+                for k in range(0, len(current_token.operand)):
+                    code_line += current_token.operand[k]
+            elif inst_table.is_instruction(current_token.operator) | eq(current_token.operator, "BYTE") | eq(current_token.operator, "WORD"):
+                line_size = 0
+                token_index = j
+
+                while token_index < token_tab_list[i].get_size():
+                    if token_tab_list[i].get_token(token_index).byte_size == 0 | eq(token_tab_list[i].get_token(token_index).operator, "RESW") | eq(token_tab_list[i].get_token(token_index).operator, "RESB") | (line_size + token_tab.get_token(token_index).byte_size > 30):
+                        break;
+
+                    line_size += token_tab.get_token(token_index).byte_size
+                    token_index += 1
+
+                code_line = "T" + ("%06X" % current_token.location) + ("%02X" % line_size)
+
+                for k in range(j, token_index):
+                    code_line += str(token_tab.get_token(k).object_code)
+                    j += 1
+
+                j -= 1
+            elif eq(current_token.operator, "LTORG") | eq(current_token.operator, "END"):
+                lin_size = 0
+
+                for k in range(0, literal_tab_list[i].get_size()):
+                    line_size += literal_tab_list[i].get_literal_size(k)
+
+                code_line = "T" + ("%06X" % current_token.location) + ("%02X" % line_size)
+
+                for k in range(0, literal_tab_list[i].get_size()):
+                    literal_data = literal_tab_list[i].get_symbol(k)
+
+                    if "X" in literal_data:
+                        literal_data = literal_data.replace("X|\'", "")
+                    elif "C" in literal_data:
+                        temp = ""
+                        literal_data = literal_data.replace("C|\'", "")
+
+                        for l in range(0, literal_tab_list[i].get_literal_size(k)):
+                            temp += ("%02X" % ord(literal_data[l]))
+                        literal_data = temp
+
+                    code_line += literal_data
+            else:
+                continue
+
+            code_list.append(code_line)
+
+        for j in range(0, modif_tab_list[i].get_size()):
+            code_list.append("M" + ("%06X" % modif_tab_list[i].get_location(j)) + ("%02X" % modif_tab_list[i].get_modif_size(j))) + modif_tab_list[i].get_symbol(j)
+
+        if i == 0:
+            code_list.append("E" + ("%06X" % token_tab.get_token(0).location))
+        else:
+            code_list.append("E")
 
 load_input_file("input.txt", line_list)
 pass1()
 print_symbol_table("symbol_20160286")
+pass2()
+print_object_code("output_20160286")

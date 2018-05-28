@@ -30,7 +30,7 @@ class TokenTable:
         return self.token_list[index].object_code
 
     def get_size(self):
-        return len(self.sym_tab)
+        return len(self.token_list)
 
     def address_to_string(self, address, size):
         address_data = ""
@@ -42,7 +42,7 @@ class TokenTable:
         return address_data
 
     def make_object_code(self, index):
-        self.program_counter += self.token_list[index].byteSize
+        self.program_counter += self.token_list[index].byte_size
         current_token = self.token_list[index]
         operator = current_token.operator
         target_address = 0
@@ -53,14 +53,14 @@ class TokenTable:
             return
 
         if "+" in operator:
-            operator = operator.replace("[+]", "")
+            operator = operator.replace("+", "")
 
         if self.inst_tab.is_instruction(operator):
             opcode = self.inst_tab.get_opcode(operator)
 
             if self.inst_tab.get_format(operator) == 3:
-                opcode += current_token.get_flag(32) / 16
-                opcode += current_token.get_flag(16) / 16
+                opcode += (current_token.get_flag(32)) // 16
+                opcode += (current_token.get_flag(16)) // 16
 
                 xbpe = 0
                 xbpe += current_token.get_flag(8)
@@ -97,7 +97,7 @@ class TokenTable:
 
                 address_data = self.address_to_string(target_address, current_token.byte_size)
 
-                current_token.object_code = ("%02X%01X" % opcode, xbpe) + address_data
+                current_token.object_code = ("%02X" % opcode) + ("%01X" % xbpe) + address_data
 
             elif self.inst_tab.get_format(operator) == 2:
                 register1 = 0
@@ -146,7 +146,7 @@ class TokenTable:
                     elif eq(current_token.operand[1], "T"):
                         register2 = 5
 
-                current_token.object_code = "%02X%01X%01X" % opcode, register1, register2
+                current_token.object_code = ("%02X" % opcode) + ("%01X" % register1) + ("%01X" % register2)
 
         elif eq(operator, "BYTE") | eq(operator, "WORD"):
             if eq(operator, "BYTE"):
@@ -206,14 +206,14 @@ class Token:
                     if len(self.operand) > 1:
                         if eq(self.operand[1], "X"):
                             self.set_flag(8, 1)
-                            if "#" in self.operand[0]:
-                                self.set_flag(16, 1)
-                                self.set_flag(2, 1)
-                            elif "@" in self.operand[0]:
-                                self.set_flag(32, 1)
-                            else:
-                                self.set_flag(32, 1)
-                                self.set_flag(16, 1)
+                    if "#" in self.operand[0]:
+                        self.set_flag(16, 1)
+                        self.set_flag(2, 1)
+                    elif "@" in self.operand[0]:
+                        self.set_flag(32, 1)
+                    else:
+                        self.set_flag(32, 1)
+                        self.set_flag(16, 1)
 
             self.location = locctr
 
