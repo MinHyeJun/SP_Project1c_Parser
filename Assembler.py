@@ -109,15 +109,15 @@ def pass1():
                 for j in range(0, len(current_token.operand)):
                     external_tab_list[program_number].put_symbol(current_token.operand[j], 0)
 
-            elif eq(current_token.operand, ""):
-                for j in external_tab_list[program_number].get_size():
+            elif len(current_token.operand) > 0:
+                for j in range(0, external_tab_list[program_number].get_size()):
                     if external_tab_list[program_number].get_symbol(j) in current_token.operand[0]:
                         modif_size = 6
 
                         if "+" in current_token.operator:
                             modif_size = 5
 
-                        if "-" in current_token.operator:
+                        if "-" in current_token.operand[0]:
                             op_symbols = current_token.operand[0].split("-")
                             modif_tab_list[program_number].put_modif_symbol("+" + op_symbols[0],
                                                                             locctr + (6-modif_size), modif_size)
@@ -126,6 +126,7 @@ def pass1():
                         else:
                             modif_tab_list[program_number].put_modif_symbol("+" + current_token.operand[0],
                                                                             locctr + (6 - modif_size), modif_size)
+                        break
         locctr += current_token.byte_size
         token_index += 1
 
@@ -219,7 +220,7 @@ def pass2():
 
 
         for j in range(0, modif_tab_list[i].get_size()):
-            code_list.append("M" + ("%06X" % modif_tab_list[i].get_location(j)) + ("%02X" % modif_tab_list[i].get_modif_size(j))) + modif_tab_list[i].get_symbol(j)
+            code_list.append("M" + ("%06X" % modif_tab_list[i].get_location(j)) + ("%02X" % modif_tab_list[i].get_modif_size(j)) + modif_tab_list[i].get_symbol(j))
 
         if i == 0:
             code_list.append("E" + ("%06X" % token_tab.get_token(0).location))
