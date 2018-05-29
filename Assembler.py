@@ -83,17 +83,17 @@ def pass1():
 
         current_token = token_tab_list[program_number].get_token(token_index)
 
-        if (not eq(current_token.label, "")) & (not eq(current_token.label, ".")):
+        if (not eq(current_token.label, "")) and (not eq(current_token.label, ".")):
             if eq(current_token.operator, "EQU"):
                 sym_tab_list[program_number].put_symbol(current_token.label, operate_address(current_token.operand[0]))
             else:
                 sym_tab_list[program_number].put_symbol(current_token.label, locctr)
 
-            if (not eq(current_token.label, "")) & ("=" in current_token.operand[0]):
+            if (not eq(current_token.label, "")) and ("=" in current_token.operand[0]):
                 literal_tab_list[program_number].put_symbol(current_token.operand[0], 0)
 
         if not eq(current_token.operator, ""):
-            if eq(current_token.operator, "LTORG") | eq(current_token.operator, "END"):
+            if eq(current_token.operator, "LTORG") or eq(current_token.operator, "END"):
                 for j in range(0, literal_tab_list[program_number].get_size()):
                     literal = literal_tab_list[program_number].get_symbol(j)
                     literal_tab_list[program_number].modif_symbol(literal, locctr)
@@ -139,12 +139,14 @@ def pass2():
         for j in range(0, token_tab.get_size()):
             token_tab.make_object_code(j)
 
-        for j in range(0, token_tab.get_size()):
+        j = 0
+        while j < token_tab.get_size():
             current_token = token_tab.get_token(j)
 
             if eq(current_token.label, "."):
+                j += 1
                 continue
-            elif eq(current_token.operator, "START") | eq(current_token.operator, "CSECT"):
+            elif eq(current_token.operator, "START") or eq(current_token.operator, "CSECT"):
                 token_index = 0
 
                 start_address = token_tab.get_token(0).location
@@ -166,12 +168,12 @@ def pass2():
                 code_line = "R"
                 for k in range(0, len(current_token.operand)):
                     code_line += current_token.operand[k]
-            elif inst_table.is_instruction(current_token.operator) | eq(current_token.operator, "BYTE") | eq(current_token.operator, "WORD"):
+            elif inst_table.is_instruction(current_token.operator) or eq(current_token.operator, "BYTE") or eq(current_token.operator, "WORD"):
                 line_size = 0
                 token_index = j
 
                 while token_index < token_tab_list[i].get_size():
-                    if token_tab_list[i].get_token(token_index).byte_size == 0 | eq(token_tab_list[i].get_token(token_index).operator, "RESW") | eq(token_tab_list[i].get_token(token_index).operator, "RESB") | (line_size + token_tab.get_token(token_index).byte_size > 30):
+                    if token_tab_list[i].get_token(token_index).byte_size == 0 or eq(token_tab_list[i].get_token(token_index).operator, "RESW") or eq(token_tab_list[i].get_token(token_index).operator, "RESB") or (line_size + token_tab.get_token(token_index).byte_size > 30):
                         break;
 
                     line_size += token_tab.get_token(token_index).byte_size
@@ -184,8 +186,8 @@ def pass2():
                     j += 1
 
                 j -= 1
-            elif eq(current_token.operator, "LTORG") | eq(current_token.operator, "END"):
-                lin_size = 0
+            elif eq(current_token.operator, "LTORG") or eq(current_token.operator, "END"):
+                line_size = 0
 
                 for k in range(0, literal_tab_list[i].get_size()):
                     line_size += literal_tab_list[i].get_literal_size(k)
@@ -196,10 +198,12 @@ def pass2():
                     literal_data = literal_tab_list[i].get_symbol(k)
 
                     if "X" in literal_data:
-                        literal_data = literal_data.replace("X|\'", "")
+                        literal_data = literal_data.replace("X", "")
+                        literal_data = literal_data.replace("\'", "")
                     elif "C" in literal_data:
                         temp = ""
-                        literal_data = literal_data.replace("C|\'", "")
+                        literal_data = literal_data.replace("C", "")
+                        literal_data = literal_data.replace("\'", "")
 
                         for l in range(0, literal_tab_list[i].get_literal_size(k)):
                             temp += ("%02X" % ord(literal_data[l]))
@@ -207,9 +211,12 @@ def pass2():
 
                     code_line += literal_data
             else:
+                j += 1
                 continue
 
             code_list.append(code_line)
+            j += 1
+
 
         for j in range(0, modif_tab_list[i].get_size()):
             code_list.append("M" + ("%06X" % modif_tab_list[i].get_location(j)) + ("%02X" % modif_tab_list[i].get_modif_size(j))) + modif_tab_list[i].get_symbol(j)
@@ -218,6 +225,8 @@ def pass2():
             code_list.append("E" + ("%06X" % token_tab.get_token(0).location))
         else:
             code_list.append("E")
+
+        j += 1
 
 load_input_file("input.txt", line_list)
 pass1()

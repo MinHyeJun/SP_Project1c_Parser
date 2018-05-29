@@ -148,10 +148,11 @@ class TokenTable:
 
                 current_token.object_code = ("%02X" % opcode) + ("%01X" % register1) + ("%01X" % register2)
 
-        elif eq(operator, "BYTE") | eq(operator, "WORD"):
+        elif eq(operator, "BYTE") or eq(operator, "WORD"):
             if eq(operator, "BYTE"):
                 if current_token.operand[0][0] == 'X' :
-                    operand_data = current_token.operand[0].replace("X|\'", "")
+                    operand_data = current_token.operand[0].replace("X", "")
+                    operand_data = operand_data.replace("\'", "")
                     current_token.object_code = operand_data
             elif eq(operator, "WORD"):
                 for i in range(0, self.ext_tab.get_size()):
@@ -198,7 +199,7 @@ class Token:
                 self.set_flag(1, 1)
             else:
                 self.byte_size = self.get_inst_size(self.operator)
-                if (len(self.operand) > 0) & (self.byte_size > 0):
+                if (len(self.operand) > 0) and (self.byte_size > 0):
                     self.set_flag(2, 1)
 
             if self.byte_size >= 3:
