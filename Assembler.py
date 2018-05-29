@@ -101,7 +101,8 @@ def pass1():
                     if "X" in literal:
                         locctr += 1
                     elif "C" in literal:
-                        literal = literal.replace("C|\'", "")
+                        literal = literal.replace("C", "")
+                        literal = literal.replace("\'", "")
                         locctr += len(literal)
 
             elif eq(current_token.operator, "EXTREF"):

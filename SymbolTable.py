@@ -47,7 +47,8 @@ class SymbolTable:
         if "X" in self.symbol_list[index]:
             return 1
         elif "C" in self.symbol_list[index]:
-            literal = self.symbol_list[index].replace("C|\'", "")
+            literal = self.symbol_list[index].replace("C", "")
+            literal = literal.replace("\'", "")
             return len(literal)
         else:
             return 0
