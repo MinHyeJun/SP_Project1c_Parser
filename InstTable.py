@@ -1,47 +1,42 @@
 class InstTable:
     def __init__(self, inst_file):
-        self.inst_map = dict()
+        self.inst_dic = dict()
         self.open_file(inst_file)
 
     def open_file(self, inst_file):
         f = open(inst_file, 'r')
         for line in f:
             token = Instruction(line)
-            self.inst_map[token.instruction] = token
+            self.inst_dic[token.instruction] = token
         f.close()
 
     def get_opcode(self, inst_name):
-        keys = self.inst_map.keys()
+        keys = self.inst_dic.keys()
         if inst_name in keys:
-            return self.inst_map.get(inst_name).opcode
+            return self.inst_dic.get(inst_name).opcode
         else:
             return -1
 
     def get_number_of_operand(self, inst_name):
-        keys = self.inst_map.keys()
+        keys = self.inst_dic.keys()
         if inst_name in keys:
-            return self.inst_map.get(inst_name).number_of_operand
+            return self.inst_dic.get(inst_name).number_of_operand
         else:
             return -1
 
     def get_format(self, inst_name):
-        keys = self.inst_map.keys()
+        keys = self.inst_dic.keys()
         if inst_name in keys:
-            return self.inst_map.get(inst_name).format
+            return self.inst_dic.get(inst_name).format
         else:
             return 0
 
     def is_instruction(self, name):
-        keys = self.inst_map.keys()
+        keys = self.inst_dic.keys()
         if name in keys:
             return True
         else:
             return False
-
-    def print_inst(self):
-        keys = self.inst_map.keys()
-        for key in keys:
-            print(self.inst_map.get(key).instruction)
 
 
 class Instruction:
