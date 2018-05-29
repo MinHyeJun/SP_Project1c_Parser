@@ -43,6 +43,7 @@ class InstTable:
         for key in keys:
             print(self.inst_map.get(key).instruction)
 
+
 class Instruction:
     def __init__(self, line):
         self.instruction = ""

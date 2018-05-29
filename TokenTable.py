@@ -1,4 +1,3 @@
-import copy
 import re
 from operator import eq
 
@@ -147,16 +146,17 @@ class TokenTable:
 
         elif eq(operator, "BYTE") or eq(operator, "WORD"):
             if eq(operator, "BYTE"):
-                if current_token.operand[0][0] == 'X' :
+                if current_token.operand[0][0] == 'X':
                     operand_data = current_token.operand[0].replace("X", "")
                     operand_data = operand_data.replace("\'", "")
                     current_token.object_code = operand_data
             elif eq(operator, "WORD"):
                 for i in range(0, self.ext_tab.get_size()):
                     if self.ext_tab.get_symbol(i) in current_token.operand[0]:
-                        break;
+                        break
                 if i < self.ext_tab.get_size():
                     current_token.object_code = "%06X" % 0
+
 
 class Token:
     def __init__(self, line, inst_table):
@@ -172,7 +172,7 @@ class Token:
         self.parsing(line)
 
     def parsing(self, line):
-        from Assembler import locctr
+        from Assembler import assembler
 
         units = re.split("\t|\n", line)
 
@@ -208,14 +208,14 @@ class Token:
                             self.set_flag(8, 1)
                     if "#" in self.operand[0]:
                         self.set_flag(16, 1)
-                        self.set_flag(2, 1)
+                        self.set_flag(2, 0)
                     elif "@" in self.operand[0]:
                         self.set_flag(32, 1)
                     else:
                         self.set_flag(32, 1)
                         self.set_flag(16, 1)
 
-            self.location = locctr
+            self.location = assembler.locctr
 
     def set_flag(self, flag, value):
         if value == 1:
