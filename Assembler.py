@@ -1,5 +1,3 @@
-import re
-import sys
 from operator import eq
 import InstTable
 import TokenTable
@@ -20,10 +18,10 @@ program_number = 0
 def tohex(val, nbits):
     return hex((val + (1 << nbits)) % (1 << nbits))
 
-def load_input_file(file_name, list):
+def load_input_file(file_name):
     f = open(file_name, 'r')
     for line in f:
-        list.append(line)
+        line_list.append(line)
     f.close()
 
 def print_object_code(file_name):
@@ -228,9 +226,3 @@ def pass2():
             code_list.append("E")
 
         j += 1
-
-load_input_file("input.txt", line_list)
-pass1()
-print_symbol_table("symbol_20160286")
-pass2()
-print_object_code("output_20160286")
