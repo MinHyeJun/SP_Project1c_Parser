@@ -65,7 +65,7 @@ def pass1():
             modif_tab_list.append(SymbolTable.SymbolTable())
             token_tab_list.append(TokenTable.TokenTable())
             token_tab_list[program_number].set_table(sym_tab_list[program_number], literal_tab_list[program_number],
-                                                     external_tab_list[program_number], inst_table, locctr)
+                                                     external_tab_list[program_number], inst_table)
 
         elif "CSECT" in line:
             program_number += 1
@@ -77,7 +77,7 @@ def pass1():
             modif_tab_list.append(SymbolTable.SymbolTable())
             token_tab_list.append(TokenTable.TokenTable())
             token_tab_list[program_number].set_table(sym_tab_list[program_number], literal_tab_list[program_number],
-                                                     external_tab_list[program_number], inst_table, locctr)
+                                                     external_tab_list[program_number], inst_table)
 
         token_tab_list[program_number].put_token(line)
 

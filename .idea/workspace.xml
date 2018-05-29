@@ -4,6 +4,7 @@
     <list default="true" id="f70ab576-6d48-4967-919b-aa6a80f08e6d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assembler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TokenTable.py" beforeDir="false" afterPath="$PROJECT_DIR$/TokenTable.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output_20160286" beforeDir="false" afterPath="$PROJECT_DIR$/output_20160286" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Assembler.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Assembler.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assembler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="124" column="114" lean-forward="true" selection-start-line="124" selection-start-column="114" selection-end-line="124" selection-end-column="114" />
+            <state relative-caret-position="216">
+              <caret line="148" column="24" lean-forward="true" selection-start-line="148" selection-start-column="24" selection-end-line="148" selection-end-column="24" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -45,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="output_20160286" pinned="false" current-in-tab="true">
+      <file leaf-file-name="output_20160286" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/output_20160286">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            <state relative-caret-position="272">
+              <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -62,8 +63,8 @@
       <file leaf-file-name="TokenTable.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TokenTable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2161">
-              <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+            <state relative-caret-position="148">
+              <caret line="217" selection-start-line="217" selection-end-line="217" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -106,12 +107,12 @@
         <option value="$PROJECT_DIR$/FileIO.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/SymbolTable.py" />
-        <option value="$PROJECT_DIR$/TokenTable.py" />
         <option value="$PROJECT_DIR$/Assembler.py" />
+        <option value="$PROJECT_DIR$/TokenTable.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1270" />
     <option name="width" value="1301" />
     <option name="height" value="1391" />
@@ -229,12 +230,12 @@
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5002929" side_tool="true" weight="0.28467155" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4997071" visible="true" weight="0.2959805" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997071" weight="0.2959805" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39829478" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39829478" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -276,11 +277,6 @@
           <line>221</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Assembler.py</url>
-          <line>119</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -289,7 +285,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="107" />
+      <option name="time" value="110" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -599,9 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InstTable.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/input.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -616,6 +609,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/InstTable.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output_20160286">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SymbolTable.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -625,8 +628,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TokenTable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2161">
-          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+        <state relative-caret-position="148">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -635,18 +638,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assembler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="124" column="114" lean-forward="true" selection-start-line="124" selection-start-column="114" selection-end-line="124" selection-end-column="114" />
+        <state relative-caret-position="216">
+          <caret line="148" column="24" lean-forward="true" selection-start-line="148" selection-start-column="24" selection-end-line="148" selection-end-column="24" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output_20160286">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
         </state>
       </provider>
     </entry>

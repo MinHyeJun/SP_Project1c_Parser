@@ -11,17 +11,15 @@ class TokenTable:
         self.inst_tab = 0
         self.token_list = list()
         self.program_counter = 0
-        self.locctr = 0
 
-    def set_table(self, sym_tab, lit_tab, ext_tab, inst_tab, locctr):
+    def set_table(self, sym_tab, lit_tab, ext_tab, inst_tab):
         self.sym_tab = sym_tab
         self.lit_tab = lit_tab
         self.ext_tab = ext_tab
         self.inst_tab = inst_tab
-        self.locctr = copy.deepcopy(locctr)
 
     def put_token(self, line):
-        self.token_list.append(Token(line, self.inst_tab, self.locctr))
+        self.token_list.append(Token(line, self.inst_tab))
 
     def get_token(self, index):
         return self.token_list[index]
@@ -33,7 +31,6 @@ class TokenTable:
         return len(self.token_list)
 
     def address_to_string(self, address, size):
-        address_data = ""
         if size == 4:
             address_data = "%05X" % (address & 0xFFFFF)
         else:
@@ -162,7 +159,7 @@ class TokenTable:
                     current_token.object_code = "%06X" % 0
 
 class Token:
-    def __init__(self, line, inst_table, locctr):
+    def __init__(self, line, inst_table):
         self.label = ""
         self.operator = ""
         self.operand = list()
@@ -172,9 +169,11 @@ class Token:
         self.object_code = 0
         self.byte_size = 0
         self.inst_table = inst_table
-        self.parsing(line, locctr)
+        self.parsing(line)
 
-    def parsing(self, line, locctr):
+    def parsing(self, line):
+        from Assembler import locctr
+
         units = re.split("\t|\n", line)
 
         if eq(units[0], "."):
